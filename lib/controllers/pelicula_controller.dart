@@ -10,7 +10,7 @@ class ApiPelicula {
     if (response.statusCode == 200) {
       return peliculaFromJson(response.body);
     } else {
-      throw Exception('Failed to load album');
+      throw Exception('Error al cargar las peliculas.');
     }
   }
 
