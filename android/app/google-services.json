@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "121691340828",
+    "project_id": "ecuafilms-f9775",
+    "storage_bucket": "ecuafilms-f9775.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:121691340828:android:9f0af93b064fff323d1fd9",
+        "android_client_info": {
+          "package_name": "com.example.ecuafilms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "121691340828-rb7hbtkt8390og1gt4cj0lfcn4d48ppg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAU0HZykRFTxWAU_iTIgpQVoJgoKDXshkQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "121691340828-rb7hbtkt8390og1gt4cj0lfcn4d48ppg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
