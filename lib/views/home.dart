@@ -2,6 +2,7 @@ import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/views/login.dart';
 import 'package:ecuafilms/controllers/api_controller.dart';
 import 'package:ecuafilms/widgets/menu_pelicula.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../models/pelicula.dart';
 import 'package:flutter/material.dart';
@@ -24,12 +25,13 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF242A32),
         actions: const <Widget>[],
       ),
-      drawer: const MenuPelicula(),
+      drawer: MenuPelicula(user),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -94,8 +96,8 @@ class _Home extends State<Home> {
             padding: const EdgeInsets.all(3),
             child: InkWell(
                 onTap: () {
-                  /*Navigator.pushNamed(context, '/detalle_pelicula',
-                      arguments: snapshot.data!.results![index].id);*/
+                  Navigator.pushNamed(context, 'detalle_pelicula',
+                      arguments: snapshot.data!.results![index].id);
                 },
                 child: Column(
                   children: [

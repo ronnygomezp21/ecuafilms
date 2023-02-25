@@ -1,0 +1,14 @@
+<peliculas>
+    <pelicula>
+        <id_pelicula>001</id_pelicula>
+        <titulo>Black Panther: Wakanda Forever</titulo>
+        <genero>Ciencia Ficcion</genero>
+        <anio>2023</anio>
+        <picture>https://image.tmdb.org/t/p/w500/mYpT2R7639KvKZ668uoQGS2QNFp.jpg</picture>
+        <sinopsis>La reina Ramonda, Shuri, M’Baku, Okoye y las Dora Milaje, luchan para 
+        proteger su nación de la injerencia de potencias mundiales a raíz de la muerte del 
+        rey T’Challa. Mientras los wakandianos se esfuerzan por adaptarse a su nueva etapa, los hér
+        oes deben actuar unidos, con la ayuda del Perro de la Guerra Nakia y Everett Ross, y forzar un nuevo desti
+        no para el reino de Wakanda.</sinopsis>
+    </pelicula>
+</peliculas>

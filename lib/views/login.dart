@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:another_flushbar/flushbar.dart';
 import 'package:ecuafilms/views/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -12,8 +15,15 @@ class Login extends StatefulWidget {
 
 class LoginForm extends State<Login> {
   final _formKey = GlobalKey<FormState>();
-  final txtusuario = TextEditingController();
+  final txtcorreo = TextEditingController();
   final txtpassword = TextEditingController();
+
+  @override
+  void dispose() {
+    txtcorreo.dispose();
+    txtpassword.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +51,7 @@ class LoginForm extends State<Login> {
                     children: [
                       _logo(),
                       _espacio(),
-                      _textFormFielUsuario(txtusuario),
+                      _textFormFieldCorreo(txtcorreo),
                       _espacio(),
                       _textFormFielPassword(txtpassword),
                       _espacio(),
@@ -50,7 +60,7 @@ class LoginForm extends State<Login> {
                       _botonIngresar(
                         context,
                         _formKey,
-                        txtusuario,
+                        txtcorreo,
                         txtpassword,
                       ),
                       _espacio(),
@@ -76,16 +86,17 @@ class LoginForm extends State<Login> {
     );
   }
 
-  Widget _textFormFielUsuario(txtusuario) {
+  Widget _textFormFieldCorreo(txtcorreo) {
     return TextFormField(
-      controller: txtusuario,
+      keyboardType: TextInputType.emailAddress,
+      controller: txtcorreo,
       decoration: InputDecoration(
         border: OutlineInputBorder(
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(10),
         ),
         fillColor: const Color.fromARGB(137, 255, 255, 255),
-        hintText: 'Usuario',
+        hintText: 'Correo Electronico',
         filled: true,
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.green, width: 2.0),
@@ -96,14 +107,18 @@ class LoginForm extends State<Login> {
           borderRadius: BorderRadius.circular(10),
         ),
         prefixIcon: const Icon(
-          Icons.person,
+          Icons.email,
           color: Colors.black,
         ),
         contentPadding: const EdgeInsets.only(top: 14.0),
       ),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Por favor ingrese su usuario';
+          return 'Por favor ingrese su correo electrónico';
+        }
+        if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+            .hasMatch(value)) {
+          return 'Por favor ingrese un correo electrónico válido';
         }
         return null;
       },
@@ -140,9 +155,9 @@ class LoginForm extends State<Login> {
         if (value!.isEmpty) {
           return 'Por favor ingrese su contraseña';
         }
-        /*if (value.length < 6) {
-        return 'La contraseña debe tener al menos 6 caracteres';
-      }*/
+        if (value.length < 6) {
+          return 'La contraseña debe tener al menos 6 caracteres';
+        }
         return null;
       },
     );
@@ -169,7 +184,7 @@ class LoginForm extends State<Login> {
   Widget _botonIngresar(
     BuildContext context,
     formKey,
-    txtusuario,
+    txtcorreo,
     txtpassword,
   ) {
     return SizedBox(
@@ -182,37 +197,7 @@ class LoginForm extends State<Login> {
             borderRadius: BorderRadius.circular(10),
           ),
         ),
-        onPressed: () {
-          if (formKey.currentState!.validate()) {
-            /*FirebaseAuth.instance
-                .signInWithEmailAndPassword(
-                    email: txtusuario.text, password: txtpassword.text)
-                .then((value) => {
-                      if (value.user != null)
-                        {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Home()),
-                            (Route<dynamic> route) => false,
-                          ),
-                          if (kDebugMode)
-                            {
-                              // ignore: prefer_interpolation_to_compose_strings
-                              print(
-                                  '${'El usuario ' + txtusuario.text} se ha logueado.'),
-                            }
-                        }
-                      else
-                        {
-                          if (kDebugMode)
-                            {
-                              print('Usuario o contraseña incorrectos'),
-                            }
-                        }*/
-            validarUsuario(txtusuario, txtpassword, context);
-          }
-        },
+        onPressed: iniciarSesion,
         child: const Text(
           'Ingresar',
           style: TextStyle(
@@ -224,20 +209,22 @@ class LoginForm extends State<Login> {
     );
   }
 
-  void validarUsuario(txtusuario, txtpassword, context) {
-    if (txtusuario.text != '' && txtpassword.text != '') {
-      Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(builder: (context) => const Home()),
-        (Route<dynamic> route) => false,
-      );
-      if (kDebugMode) {
-        // ignore: prefer_interpolation_to_compose_strings
-        print('${'El usuario ' + txtusuario.text} se ha logueado.');
-      }
-    } else {
-      if (kDebugMode) {
-        print('Usuario o contraseña incorrectos');
+  Future iniciarSesion() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+            email: txtcorreo.text.trim().toString(),
+            password: txtpassword.text.trim().toString());
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+          Flushbar(
+            margin: const EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(8),
+            message: 'correo o contraseña incorrectos.',
+            duration: const Duration(seconds: 3),
+            backgroundColor: const Color(0xFFDC3545),
+          ).show(context);
+        }
       }
     }
   }

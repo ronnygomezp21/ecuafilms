@@ -1,8 +1,22 @@
 import 'package:ecuafilms/views/login.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 import 'package:flutter/material.dart';
 
-class MenuPelicula extends StatelessWidget {
-  const MenuPelicula({super.key});
+final user = FirebaseAuth.instance.currentUser;
+
+class MenuPelicula extends StatefulWidget {
+  const MenuPelicula(User? user, {super.key});
+  @override
+  // ignore: library_private_types_in_public_api
+  _Menu createState() => _Menu();
+}
+
+class _Menu extends State<MenuPelicula> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +36,14 @@ class MenuPelicula extends StatelessWidget {
           drawerItem(
               icon: Icons.exit_to_app,
               text: 'Cerrar Sesión',
-              onTap: () => Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(builder: (context) => const Login()),
-                    (Route<dynamic> route) => false,
-                  )),
+              onTap: () => cerrarSesion()),
         ],
       ),
     );
+  }
+
+  Future cerrarSesion() async {
+    await FirebaseAuth.instance.signOut();
   }
 
   Widget drawerHeader() {
@@ -39,13 +53,10 @@ class MenuPelicula extends StatelessWidget {
         decoration: const BoxDecoration(
           color: Color(0xFF242A32),
         ),
-        child: Stack(children: const <Widget>[
-          Positioned(
-              bottom: 12.0,
-              left: 16.0,
-              child: Text("EcuaFilms",
-                  style:
-                      TextStyle(fontSize: 20.0, fontWeight: FontWeight.w500))),
+        child: Stack(children: <Widget>[
+          Text(
+            (user!.email.toString()),
+          ),
         ]));
   }
 

@@ -13,16 +13,5 @@ class ApiPelicula {
       throw Exception('Error al cargar las peliculas.');
     }
   }
-
-  /*Future<Pelicula> get obtenerPopulares async {
-    final response = await http.get(Uri.parse(
-        '${Api.baseUrl}movie/popular?api_key=${Api.apiKey}&language=es-ES&page=1'));
-
-    if (response.statusCode == 200) {
-      print(response.body);
-      return PeliculaFromJson(response.body);
-    } else {
-      throw Exception('Failed to load album');
-    }
-  }*/
+  
 }
