@@ -12,10 +12,13 @@ const image = Api.imageBaseUrl;
 
 class Home extends StatefulWidget {
   const Home({super.key});
+
   @override
   // ignore: library_private_types_in_public_api
   _Home createState() => _Home();
 }
+
+Future<Pelicula> detallePelicula = ApiPelicula().obtenerPeliculas;
 
 class _Home extends State<Home> {
   @override
@@ -25,13 +28,13 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    User? user = FirebaseAuth.instance.currentUser;
+    final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF242A32),
         actions: const <Widget>[],
       ),
-      drawer: MenuPelicula(user),
+      drawer: MenuPelicula(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -44,15 +47,15 @@ class _Home extends State<Home> {
           ),
         ),
         child: FutureBuilder<Pelicula>(
-          future: ApiPelicula().obtenerPeliculas,
+          future: detallePelicula,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
               return ListView(
                 padding: const EdgeInsets.only(top: 15),
                 children: [
                   caruselPelicula(snapshot),
-                  const SizedBox(height: 10),
-                  _titulo(),
+                  espacio(10),
+                  _titulo('Peliculas', 20),
                   _lista_peliculas(snapshot),
                 ],
               );
@@ -65,13 +68,15 @@ class _Home extends State<Home> {
     );
   }
 
-  Padding _titulo() {
-    return const Padding(
-      padding: EdgeInsets.only(left: 10),
+  SizedBox espacio(double espacio) => SizedBox(height: espacio);
+
+  Padding _titulo(String titulo, double size) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 10),
       child: Text(
-        'Peliculas',
+        titulo,
         style: TextStyle(
-          fontSize: 20,
+          fontSize: size,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
@@ -96,8 +101,10 @@ class _Home extends State<Home> {
             padding: const EdgeInsets.all(3),
             child: InkWell(
                 onTap: () {
+                  //var idPelicula = snapshot.data!.results![index].id;
                   Navigator.pushNamed(context, 'detalle_pelicula',
                       arguments: snapshot.data!.results![index].id);
+                  print(snapshot.data!.results![index].id);
                 },
                 child: Column(
                   children: [

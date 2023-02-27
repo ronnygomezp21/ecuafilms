@@ -1,18 +1,17 @@
-import 'package:ecuafilms/views/login.dart';
+import 'package:ecuafilms/main.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'package:flutter/material.dart';
 
-final user = FirebaseAuth.instance.currentUser;
-
 class MenuPelicula extends StatefulWidget {
-  const MenuPelicula(User? user, {super.key});
+  MenuPelicula({super.key});
   @override
   // ignore: library_private_types_in_public_api
   _Menu createState() => _Menu();
 }
 
 class _Menu extends State<MenuPelicula> {
+  final User? user = FirebaseAuth.instance.currentUser;
   @override
   void initState() {
     super.initState();
@@ -20,6 +19,8 @@ class _Menu extends State<MenuPelicula> {
 
   @override
   Widget build(BuildContext context) {
+    // print(user
+    // ?.email); // se imprime el correo del usuario para verificar que usuario esta logueado
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -27,23 +28,23 @@ class _Menu extends State<MenuPelicula> {
           drawerHeader(),
           drawerItem(
               icon: Icons.movie,
-              text: 'Peliculas',
+              text: user!.email.toString(), // se coloca peliculas
               onTap: () => Navigator.pushNamed(context, 'home')),
           drawerItem(
               icon: Icons.person,
-              text: 'Perfil',
+              text: user!.uid.toString(), //se coloca perfil
               onTap: () => Navigator.pushNamed(context, 'perfil_usuario')),
           drawerItem(
               icon: Icons.exit_to_app,
               text: 'Cerrar Sesión',
-              onTap: () => cerrarSesion()),
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((value) => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const MyApp())));
+              }),
         ],
       ),
     );
-  }
-
-  Future cerrarSesion() async {
-    await FirebaseAuth.instance.signOut();
   }
 
   Widget drawerHeader() {
@@ -54,8 +55,25 @@ class _Menu extends State<MenuPelicula> {
           color: Color(0xFF242A32),
         ),
         child: Stack(children: <Widget>[
-          Text(
-            (user!.email.toString()),
+          Padding(
+            padding: const EdgeInsets.all(50),
+            child: Text(
+              'Correo: ${user!.email}',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 20, left: 50),
+            child: Text(
+              'Id: ${user!.uid}',
+              style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500),
+            ),
           ),
         ]));
   }

@@ -28,8 +28,29 @@ void setup() async {
   FlutterNativeSplash.remove();
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    checkAuthentification();
+  }
+
+  void checkAuthentification() {
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('No hay ningun usuario logueado.');
+      } else {
+        print('Usuario logueado');
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +79,9 @@ class MyApp extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             return const Home();
-          } else if (snapshot.hasError) {
+          } else if (!snapshot.hasData) {
+            return const Login();
+          } else {
             return const Center(
               child: AlertDialog(
                 title: Text('Error'),
@@ -67,8 +90,6 @@ class MyApp extends StatelessWidget {
                 iconColor: Colors.red,
               ),
             );
-          } else {
-            return const Login();
           }
         },
       ),

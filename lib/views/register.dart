@@ -1,9 +1,9 @@
-import 'package:ecuafilms/views/login.dart';
+import 'package:another_flushbar/flushbar.dart';
+import 'package:ecuafilms/main.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Register extends StatefulWidget {
-  //final _key = GlobalKey<FormState>();
-  //final txtcorreo = TextEditingController();
   const Register({super.key});
   @override
   RegisterForm createState() => RegisterForm();
@@ -73,144 +73,197 @@ class Register extends StatefulWidget {
         ));
   }*/
 class RegisterForm extends State<Register> {
+  bool mostrarPassword = false;
   final _formKey = GlobalKey<FormState>();
-  final txtnombre = TextEditingController();
-  final txtapellido = TextEditingController();
-  String? msj;
-  //RegisterForm({Key: Register}) : super();
+  final txtcorreo = TextEditingController();
+  final txtpassword = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Register',
-                style: TextStyle(
-                  color: Color.fromRGBO(0, 96, 128, 1),
-                  fontFamily: 'Montserrat',
-                  fontSize: 30,
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                margin: const EdgeInsets.symmetric(horizontal: 20),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(color: const Color.fromRGBO(0, 96, 128, 1))),
-                child: Center(
-                  child: TextFormField(
-                    controller: txtnombre,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        msj = 'Por favor ingrese su nombre';
-                      } else {
-                        msj = null;
-                      }
-                      return null;
-                    },
-                    style: const TextStyle(color: Colors.black),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.black87),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                width: 320,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    border:
-                        Border.all(color: const Color.fromRGBO(0, 96, 128, 1))),
-                child: Center(
-                  child: TextFormField(
-                    controller: txtapellido,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        msj = 'Por favor ingrese su apellido';
-                      } else {
-                        msj = null;
-                      }
-                      return null;
-                    },
-                    style: const TextStyle(color: Colors.black),
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintStyle: TextStyle(color: Colors.black87),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                child: const Text('VALIDATE'),
-                onPressed: () {
-                  setState(() {
-                    _formKey.currentState!.validate();
-                  });
-                },
-              ),
-            ],
+        body: Container(
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/img/fondo_1.jpg'),
+          fit: BoxFit.cover,
+          colorFilter: ColorFilter.mode(
+            Colors.black54,
+            BlendMode.darken,
+          ),
+        ),
+      ),
+      child: Center(
+          child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(18),
+          child: Form(
+            key: _formKey,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            child: Column(
+              //mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                text('Registro'),
+                espacio(15),
+                textFormField(
+                    'Correo Electronico',
+                    txtcorreo,
+                    TextInputType.emailAddress,
+                    Icons.email,
+                    'Correo',
+                    false,
+                    null,
+                    null),
+                espacio(15),
+                textFormField(
+                    'Contraseña',
+                    txtpassword,
+                    TextInputType.visiblePassword,
+                    Icons.lock,
+                    'Contraseña',
+                    true,
+                    Icons.visibility_off,
+                    Icons.visibility),
+                espacio(15),
+                botonIngresar(_formKey),
+              ],
+            ),
+          ),
+        ),
+      )),
+    ));
+  }
+
+  Widget espacio(double alto) {
+    return SizedBox(
+      height: alto,
+    );
+  }
+
+  Widget text(String registro) {
+    return Text(
+      registro,
+      style: const TextStyle(
+        color: Colors.white,
+        fontSize: 30,
+        fontWeight: FontWeight.bold,
+      ),
+    );
+  }
+
+  Widget textFormField(
+      String texto,
+      TextEditingController controller,
+      keyboardType,
+      IconData icono,
+      String mensaje,
+      bool valor,
+      iconoPassword,
+      iconoPasswordv) {
+    return TextFormField(
+      obscureText: mostrarPassword == false ? valor : false,
+      keyboardType: keyboardType,
+      controller: controller,
+      decoration: InputDecoration(
+        border: OutlineInputBorder(
+          borderSide: BorderSide.none,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        fillColor: const Color.fromARGB(137, 255, 255, 255),
+        hintText: texto,
+        filled: true,
+        focusedBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.green, width: 2.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        focusedErrorBorder: OutlineInputBorder(
+          borderSide: const BorderSide(color: Colors.red, width: 2.0),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        prefixIcon: Icon(
+          icono,
+          color: Colors.black,
+        ),
+        suffixIcon: GestureDetector(
+          child: Icon(
+            mostrarPassword == false ? iconoPassword : iconoPasswordv,
+            color: Colors.black,
+          ),
+          onTap: () {
+            setState(() {
+              mostrarPassword = !mostrarPassword;
+            });
+          },
+        ),
+        contentPadding: const EdgeInsets.only(top: 14.0),
+      ),
+      validator: (value) {
+        if (value!.isEmpty) {
+          return 'Por favor ingrese su $mensaje';
+        }
+        if (mensaje == 'Correo' &&
+            !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                .hasMatch(value)) {
+          return 'Por favor ingrese un correo valido';
+        }
+        if (mensaje == 'Contraseña' && value.length < 6) {
+          return 'La contraseña debe tener al menos 6 caracteres';
+        }
+        return null;
+      },
+    );
+  }
+
+  Widget botonIngresar(formKey) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: const Color.fromARGB(255, 95, 142, 181),
+          padding: const EdgeInsets.symmetric(vertical: 8),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        onPressed: registrarse,
+        child: const Text(
+          'Registrarse',
+          style: TextStyle(
+            fontSize: 20,
+            color: Colors.white,
           ),
         ),
       ),
     );
   }
-}
 
-void mostrarAlerta(BuildContext context) {
-  showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text('Registro'),
-          content: const Text('Registro exitoso'),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Aceptar'),
-              onPressed: () => Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(builder: (context) => const Login()),
-                (Route<dynamic> route) => false,
-              ),
+  Future registrarse() async {
+    if (_formKey.currentState!.validate()) {
+      try {
+        await FirebaseAuth.instance
+            .createUserWithEmailAndPassword(
+              email: txtcorreo.text.trim(),
+              password: txtpassword.text.trim(),
             )
-          ],
-        );
-      });
-}
-
-Widget textFormCorreo(txtcorreo) {
-  return Container(
-      decoration: BoxDecoration(
-        color: const Color.fromARGB(137, 255, 255, 255),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: TextFormField(
-        controller: txtcorreo,
-        keyboardType: TextInputType.emailAddress,
-        decoration: const InputDecoration(
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.only(top: 14.0),
-          prefixIcon: Icon(
-            Icons.email,
-            color: Colors.black,
-          ),
-          hintText: 'Ingrese su correo',
-        ),
-        validator: (value) {
-          if (value!.isEmpty) {
-            return 'Por favor ingrese su correo';
-          }
-          if (RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-                  .hasMatch(value) ==
-              false) return 'Por favor ingrese un correo valido';
-          return null;
-        },
-      ));
+            .then((value) => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MyApp())));
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'email-already-in-use') {
+          Flushbar(
+            margin: const EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(8),
+            message: 'El correo ya esta en uso.',
+            duration: const Duration(seconds: 3),
+            backgroundColor: const Color(0xFFDC3545),
+          ).show(context);
+        } else {
+          Flushbar(
+            margin: const EdgeInsets.all(8),
+            borderRadius: BorderRadius.circular(8),
+            message: 'Error al registrarse, intentalo de nuevo.',
+            duration: const Duration(seconds: 3),
+            backgroundColor: const Color(0xFFDC3545),
+          ).show(context);
+        }
+      }
+    }
+  }
 }

@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:another_flushbar/flushbar.dart';
 import 'package:ecuafilms/views/home.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -212,9 +209,12 @@ class LoginForm extends State<Login> {
   Future iniciarSesion() async {
     if (_formKey.currentState!.validate()) {
       try {
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-            email: txtcorreo.text.trim().toString(),
-            password: txtpassword.text.trim().toString());
+        await FirebaseAuth.instance
+            .signInWithEmailAndPassword(
+                email: txtcorreo.text.trim().toString(),
+                password: txtpassword.text.trim().toString())
+            .then((value) => Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const Home())));
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found' || e.code == 'wrong-password') {
           Flushbar(

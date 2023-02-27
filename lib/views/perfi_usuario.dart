@@ -1,8 +1,6 @@
 import 'package:ecuafilms/widgets/menu_pelicula.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 
-final User? user = FirebaseAuth.instance.currentUser;
+import 'package:flutter/material.dart';
 
 class PerfilUsuario extends StatefulWidget {
   const PerfilUsuario({super.key});
@@ -23,7 +21,7 @@ class _PerfilUsuario extends State<PerfilUsuario> {
       appBar: AppBar(
         actions: const <Widget>[],
       ),
-      drawer: MenuPelicula(user),
+      //drawer: const MenuPelicula(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -35,11 +33,7 @@ class _PerfilUsuario extends State<PerfilUsuario> {
             ),
           ),
         ),
-        child: Column(
-          children: const <Widget>[
-            SizedBox(height: 10),
-          ],
-        ),
+        child: Center(),
       ),
     );
   }
