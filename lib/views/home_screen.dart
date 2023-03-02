@@ -1,10 +1,10 @@
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
-import 'package:ecuafilms/views/login.dart';
+import 'package:ecuafilms/views/login_screen.dart';
 import 'package:ecuafilms/controllers/api_controller.dart';
 import 'package:ecuafilms/widgets/menu_pelicula.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
-import '../models/pelicula.dart';
+import '../models/pelicula_model.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 

@@ -1,7 +1,7 @@
 import 'package:ecuafilms/controllers/api_controller.dart';
-import 'package:ecuafilms/models/detalle_pelicula.dart';
+import 'package:ecuafilms/models/detalle_pelicula_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:ecuafilms/models/pelicula.dart';
+import 'package:ecuafilms/models/pelicula_model.dart';
 
 class ApiPelicula {
   Future<Pelicula> get obtenerPeliculas async {

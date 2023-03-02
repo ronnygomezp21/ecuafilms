@@ -1,5 +1,5 @@
 import 'package:another_flushbar/flushbar.dart';
-import 'package:ecuafilms/views/home.dart';
+import 'package:ecuafilms/views/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

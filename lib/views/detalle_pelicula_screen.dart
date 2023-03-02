@@ -1,6 +1,6 @@
 import 'package:ecuafilms/controllers/api_controller.dart';
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
-import 'package:ecuafilms/models/detalle_pelicula.dart';
+import 'package:ecuafilms/models/detalle_pelicula_model.dart';
 
 import 'package:flutter/material.dart';
 
