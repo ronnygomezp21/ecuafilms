@@ -25,66 +25,55 @@ class LoginForm extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/img/fondo_1.jpg'),
-              fit: BoxFit.cover,
-              colorFilter: ColorFilter.mode(
-                Colors.black54,
-                BlendMode.darken,
-              ),
-            ),
+                image: AssetImage('assets/img/fondo_1.jpg'),
+                fit: BoxFit.cover,
+                colorFilter:
+                    ColorFilter.mode(Colors.black54, BlendMode.darken)),
           ),
           child: Center(
-              child: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(18),
-              child: Form(
-                key: _formKey,
-                autovalidateMode: AutovalidateMode.onUserInteraction,
-                child: Column(
-                  children: [
-                    _logo(),
-                    _espacio(),
-                    _textFormFieldCorreo(txtcorreo),
-                    _espacio(),
-                    _textFormFielPassword(txtpassword),
-                    _espacio(),
-                    _olvidastePassword(),
-                    _espacio(),
-                    _botonIngresar(
-                      context,
-                      _formKey,
-                      txtcorreo,
-                      txtpassword,
-                    ),
-                    _espacio(),
-                    _crearCuenta(context),
-                  ],
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    children: [
+                      logo('assets/img/logo.png'),
+                      espacio(15),
+                      _textFormFieldCorreo(txtcorreo),
+                      espacio(15),
+                      _textFormFielPassword(txtpassword),
+                      espacio(15),
+                      _olvidastePassword(),
+                      espacio(15),
+                      _botonIngresar(context, _formKey, txtcorreo, txtpassword),
+                      espacio(15),
+                      _crearCuenta(context)
+                    ],
+                  ),
                 ),
               ),
             ),
-          ))),
-    ));
-  }
-
-  Widget _espacio() {
-    return const SizedBox(
-      height: 15,
+          ),
+        ),
+      ),
     );
   }
 
-  Widget _logo() {
-    return Image.asset(
-      'assets/img/logo.png',
-      height: 40,
-      width: 250,
-    );
+  Widget espacio(double alto) {
+    return SizedBox(height: alto);
+  }
+
+  Widget logo(String ruta) {
+    return Image.asset(ruta, height: 40, width: 250);
   }
 
   Widget _textFormFieldCorreo(txtcorreo) {

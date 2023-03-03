@@ -24,15 +24,11 @@ class RegisterForm extends State<Register> {
       },
       child: Container(
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/img/fondo_1.jpg'),
-            fit: BoxFit.cover,
-            colorFilter: ColorFilter.mode(
-              Colors.black54,
-              BlendMode.darken,
-            ),
-          ),
-        ),
+            image: DecorationImage(
+                image: AssetImage('assets/img/fondo_1.jpg'),
+                fit: BoxFit.cover,
+                colorFilter:
+                    ColorFilter.mode(Colors.black54, BlendMode.darken))),
         child: Center(
             child: SingleChildScrollView(
           child: Padding(
@@ -72,7 +68,7 @@ class RegisterForm extends State<Register> {
                   espacio(15),
                   botonIngresar(_formKey),
                   espacio(15),
-                  regresarLogin(),
+                  regresarLogin()
                 ],
               ),
             ),
@@ -83,20 +79,13 @@ class RegisterForm extends State<Register> {
   }
 
   Widget espacio(double alto) {
-    return SizedBox(
-      height: alto,
-    );
+    return SizedBox(height: alto);
   }
 
   Widget text(String registro) {
-    return Text(
-      registro,
-      style: const TextStyle(
-        color: Colors.white,
-        fontSize: 30,
-        fontWeight: FontWeight.bold,
-      ),
-    );
+    return Text(registro,
+        style: const TextStyle(
+            color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold));
   }
 
   Widget textFormField(
@@ -113,38 +102,31 @@ class RegisterForm extends State<Register> {
       keyboardType: keyboardType,
       controller: controller,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fillColor: const Color.fromARGB(137, 255, 255, 255),
-        hintText: texto,
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.green, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.red, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        prefixIcon: Icon(
-          icono,
-          color: Colors.black,
-        ),
-        suffixIcon: GestureDetector(
-          child: Icon(
-            mostrarPassword == false ? iconoPassword : iconoPasswordv,
-            color: Colors.black,
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10)),
+          fillColor: const Color.fromARGB(137, 255, 255, 255),
+          hintText: texto,
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.green, width: 2.0),
+            borderRadius: BorderRadius.circular(10),
           ),
-          onTap: () {
-            setState(() {
-              mostrarPassword = !mostrarPassword;
-            });
-          },
-        ),
-        contentPadding: const EdgeInsets.only(top: 14.0),
-      ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red, width: 2.0),
+              borderRadius: BorderRadius.circular(10)),
+          prefixIcon: Icon(icono, color: Colors.black),
+          suffixIcon: GestureDetector(
+            child: Icon(
+                mostrarPassword == false ? iconoPassword : iconoPasswordv,
+                color: Colors.black),
+            onTap: () {
+              setState(() {
+                mostrarPassword = !mostrarPassword;
+              });
+            },
+          ),
+          contentPadding: const EdgeInsets.only(top: 14.0)),
       validator: (value) {
         if (value!.isEmpty) {
           return 'Por favor ingrese su $mensaje';
@@ -171,25 +153,18 @@ class RegisterForm extends State<Register> {
 
   Widget botonIngresar(formKey) {
     return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: const Color.fromARGB(255, 95, 142, 181),
-          padding: const EdgeInsets.symmetric(vertical: 8),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+        width: double.infinity,
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: const Color.fromARGB(255, 95, 142, 181),
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
-        ),
-        onPressed: validacion,
-        child: const Text(
-          'Registrarse',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
+          onPressed: validacion,
+          child: const Text('Registrarse',
+              style: TextStyle(fontSize: 20, color: Colors.white)),
+        ));
   }
 
   void validacion() {
@@ -200,30 +175,19 @@ class RegisterForm extends State<Register> {
   }
 
   Widget regresarLogin() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        const Text('¿ya te encuentras registrado?',
-            style: TextStyle(
-              fontSize: 15,
-              color: Colors.white,
-            )),
-        const SizedBox(
-          width: 5,
-        ),
-        InkWell(
-            onTap: () {
-              Navigator.pushNamed(context, 'login');
-            },
-            child: const Text(
-              'Login',
+    return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+      const Text('¿ya te encuentras registrado?',
+          style: TextStyle(fontSize: 15, color: Colors.white)),
+      const SizedBox(width: 5),
+      InkWell(
+          onTap: () {
+            Navigator.pushNamed(context, 'login');
+          },
+          child: const Text('Login',
               style: TextStyle(
-                fontSize: 15,
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-      ],
-    );
+                  fontSize: 15,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold)))
+    ]);
   }
 }
