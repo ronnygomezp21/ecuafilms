@@ -46,9 +46,8 @@ class LoginForm extends State<Login> {
               padding: const EdgeInsets.all(18),
               child: Form(
                 key: _formKey,
-                //autovalidateMode: AutovalidateMode.onUserInteraction,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
                 child: Column(
-                  //mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _logo(),
                     _espacio(),

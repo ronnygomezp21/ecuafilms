@@ -41,7 +41,6 @@ class RegisterForm extends State<Register> {
               key: _formKey,
               autovalidateMode: AutovalidateMode.onUserInteraction,
               child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   text('Registro'),
                   espacio(15),

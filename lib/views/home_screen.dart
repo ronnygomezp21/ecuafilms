@@ -1,9 +1,7 @@
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
-import 'package:ecuafilms/views/login_screen.dart';
 import 'package:ecuafilms/controllers/api_controller.dart';
 import 'package:ecuafilms/widgets/menu_pelicula_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import '../models/pelicula_model.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -101,7 +99,6 @@ class _Home extends State<Home> {
             padding: const EdgeInsets.all(3),
             child: InkWell(
                 onTap: () {
-                  //var idPelicula = snapshot.data!.results![index].id;
                   Navigator.pushNamed(context, 'detalle_pelicula',
                       arguments: snapshot.data!.results![index].id);
                   print(snapshot.data!.results![index].id);
@@ -121,58 +118,6 @@ class _Home extends State<Home> {
           );
         },
       ),
-    );
-  }
-
-  ListView opcionesMenu(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.zero,
-      children: <Widget>[
-        const DrawerHeader(
-          margin: EdgeInsets.zero,
-          decoration: BoxDecoration(
-            color: Color(0xFF242A32),
-          ),
-          //padding: EdgeInsets.only(left: 50),
-          child: Text('EcuaFilms',
-              style: TextStyle(
-                color: Colors.white,
-                fontWeight: FontWeight.bold,
-                fontSize: 24,
-              )),
-        ),
-        ListTile(
-          title: const Text('Perfil',
-              style: TextStyle(
-                fontWeight: FontWeight.normal,
-                fontSize: 18,
-              )),
-          leading: const Icon(Icons.person),
-          onTap: () {
-            Navigator.pushNamed(context, 'perfil_usuario');
-          },
-        ),
-        ListTile(
-          title: const Text(
-            'Cerrar Sesión',
-            style: TextStyle(
-              fontWeight: FontWeight.normal,
-              fontSize: 18,
-            ),
-          ),
-          leading: const Icon(Icons.exit_to_app),
-          onTap: () {
-            Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(builder: (context) => const Login()),
-              (Route<dynamic> route) => false,
-            );
-            if (kDebugMode) {
-              print('Usted ha salido del sistema.');
-            }
-          },
-        ),
-      ],
     );
   }
 
