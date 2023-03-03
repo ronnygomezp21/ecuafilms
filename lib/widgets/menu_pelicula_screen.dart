@@ -28,11 +28,11 @@ class _Menu extends State<MenuPelicula> {
           drawerHeader(),
           drawerItem(
               icon: Icons.movie,
-              text: user!.email.toString(), // se coloca peliculas
+              text: 'Peliculas', // se coloca peliculas
               onTap: () => Navigator.pushNamed(context, 'home')),
           drawerItem(
               icon: Icons.person,
-              text: user!.uid.toString(), //se coloca perfil
+              text: 'Perfil', //se coloca perfil
               onTap: () => Navigator.pushNamed(context, 'perfil_usuario')),
           drawerItem(
               icon: Icons.exit_to_app,
