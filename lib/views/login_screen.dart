@@ -1,6 +1,4 @@
-import 'package:another_flushbar/flushbar.dart';
-import 'package:ecuafilms/views/home_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ecuafilms/controllers/sesion_controller.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -11,6 +9,7 @@ class Login extends StatefulWidget {
 }
 
 class LoginForm extends State<Login> {
+  bool mostrarPassword = false;
   final _formKey = GlobalKey<FormState>();
   final txtcorreo = TextEditingController();
   final txtpassword = TextEditingController();
@@ -48,13 +47,29 @@ class LoginForm extends State<Login> {
                     children: [
                       logo('assets/img/logo.png'),
                       espacio(15),
-                      _textFormFieldCorreo(txtcorreo),
+                      textFormField(
+                          'Correo Electronico',
+                          txtcorreo,
+                          TextInputType.emailAddress,
+                          Icons.email,
+                          'Correo',
+                          false,
+                          null,
+                          null),
                       espacio(15),
-                      _textFormFielPassword(txtpassword),
+                      textFormField(
+                          'Contraseña',
+                          txtpassword,
+                          TextInputType.visiblePassword,
+                          Icons.lock,
+                          'Contraseña',
+                          true,
+                          Icons.visibility_off,
+                          Icons.visibility),
                       espacio(15),
                       _olvidastePassword(),
                       espacio(15),
-                      _botonIngresar(context, _formKey, txtcorreo, txtpassword),
+                      _botonIngresar(),
                       espacio(15),
                       _crearCuenta(context)
                     ],
@@ -76,76 +91,55 @@ class LoginForm extends State<Login> {
     return Image.asset(ruta, height: 40, width: 250);
   }
 
-  Widget _textFormFieldCorreo(txtcorreo) {
+  Widget textFormField(
+      String texto,
+      TextEditingController controller,
+      keyboardType,
+      IconData icono,
+      String mensaje,
+      bool valor,
+      iconoPassword,
+      iconoPasswordv) {
     return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      controller: txtcorreo,
+      obscureText: mostrarPassword == false ? valor : false,
+      keyboardType: keyboardType,
+      controller: controller,
       decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fillColor: const Color.fromARGB(137, 255, 255, 255),
-        hintText: 'Correo Electronico',
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.green, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.red, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        prefixIcon: const Icon(
-          Icons.email,
-          color: Colors.black,
-        ),
-        contentPadding: const EdgeInsets.only(top: 14.0),
-      ),
+          border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(10)),
+          fillColor: const Color.fromARGB(137, 255, 255, 255),
+          hintText: texto,
+          filled: true,
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.green, width: 2.0),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.red, width: 2.0),
+              borderRadius: BorderRadius.circular(10)),
+          prefixIcon: Icon(icono, color: Colors.black),
+          suffixIcon: GestureDetector(
+            child: Icon(
+                mostrarPassword == false ? iconoPassword : iconoPasswordv,
+                color: Colors.black),
+            onTap: () {
+              setState(() {
+                mostrarPassword = !mostrarPassword;
+              });
+            },
+          ),
+          contentPadding: const EdgeInsets.only(top: 14.0)),
       validator: (value) {
         if (value!.isEmpty) {
-          return 'Por favor ingrese su correo electrónico';
+          return 'Por favor ingrese su $mensaje';
         }
-        if (!RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
-            .hasMatch(value)) {
-          return 'Por favor ingrese un correo electrónico válido';
+        if (mensaje == 'Correo' &&
+            !RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$')
+                .hasMatch(value)) {
+          return 'Por favor ingrese un correo valido';
         }
-        return null;
-      },
-    );
-  }
-
-  Widget _textFormFielPassword(txtpassword) {
-    return TextFormField(
-      obscureText: true,
-      controller: txtpassword,
-      decoration: InputDecoration(
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: BorderRadius.circular(10),
-        ),
-        fillColor: const Color.fromARGB(137, 255, 255, 255),
-        hintText: 'Contraseña',
-        filled: true,
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.green, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.red, width: 2.0),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        prefixIcon: const Icon(
-          Icons.lock,
-          color: Colors.black,
-        ),
-        contentPadding: const EdgeInsets.only(top: 14.0),
-      ),
-      validator: (value) {
-        if (value!.isEmpty) {
-          return 'Por favor ingrese su contraseña';
-        }
-        if (value.length < 6) {
+        if (mensaje == 'Contraseña' && value.length < 6) {
           return 'La contraseña debe tener al menos 6 caracteres';
         }
         return null;
@@ -171,12 +165,7 @@ class LoginForm extends State<Login> {
     );
   }
 
-  Widget _botonIngresar(
-    BuildContext context,
-    formKey,
-    txtcorreo,
-    txtpassword,
-  ) {
+  Widget _botonIngresar() {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
@@ -201,24 +190,7 @@ class LoginForm extends State<Login> {
 
   Future iniciarSesion() async {
     if (_formKey.currentState!.validate()) {
-      try {
-        await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: txtcorreo.text.trim().toString(),
-                password: txtpassword.text.trim().toString())
-            .then((value) => Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const Home())));
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found' || e.code == 'wrong-password') {
-          Flushbar(
-            margin: const EdgeInsets.all(8),
-            borderRadius: BorderRadius.circular(8),
-            message: 'correo o contraseña incorrectos.',
-            duration: const Duration(seconds: 3),
-            backgroundColor: const Color(0xFFDC3545),
-          ).show(context);
-        }
-      }
+      Sesion().login(txtcorreo.text, txtpassword.text, context);
     }
   }
 

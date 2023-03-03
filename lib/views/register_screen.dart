@@ -18,64 +18,73 @@ class RegisterForm extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-      },
-      child: Container(
-        decoration: const BoxDecoration(
-            image: DecorationImage(
-                image: AssetImage('assets/img/fondo_1.jpg'),
-                fit: BoxFit.cover,
-                colorFilter:
-                    ColorFilter.mode(Colors.black54, BlendMode.darken))),
-        child: Center(
+      body: GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+        },
+        child: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/img/fondo_1.jpg'),
+                  fit: BoxFit.cover,
+                  colorFilter:
+                      ColorFilter.mode(Colors.black54, BlendMode.darken))),
+          child: Center(
             child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(18),
-            child: Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                children: [
-                  text('Registro'),
-                  espacio(15),
-                  textFormField('Nombres', txtnombres, TextInputType.text,
-                      Icons.person, 'Nombres', false, null, null),
-                  espacio(15),
-                  textFormField('Apellidos', txtapellidos, TextInputType.text,
-                      Icons.person, 'Apellidos', false, null, null),
-                  espacio(15),
-                  textFormField(
-                      'Correo Electronico',
-                      txtcorreo,
-                      TextInputType.emailAddress,
-                      Icons.email,
-                      'Correo',
-                      false,
-                      null,
-                      null),
-                  espacio(15),
-                  textFormField(
-                      'Contraseña',
-                      txtpassword,
-                      TextInputType.visiblePassword,
-                      Icons.lock,
-                      'Contraseña',
-                      true,
-                      Icons.visibility_off,
-                      Icons.visibility),
-                  espacio(15),
-                  botonIngresar(_formKey),
-                  espacio(15),
-                  regresarLogin()
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(18),
+                child: Form(
+                  key: _formKey,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  child: Column(
+                    children: [
+                      text('Registro'),
+                      espacio(15),
+                      textFormField('Nombres', txtnombres, TextInputType.text,
+                          Icons.person, 'Nombres', false, null, null),
+                      espacio(15),
+                      textFormField(
+                          'Apellidos',
+                          txtapellidos,
+                          TextInputType.text,
+                          Icons.person,
+                          'Apellidos',
+                          false,
+                          null,
+                          null),
+                      espacio(15),
+                      textFormField(
+                          'Correo Electronico',
+                          txtcorreo,
+                          TextInputType.emailAddress,
+                          Icons.email,
+                          'Correo',
+                          false,
+                          null,
+                          null),
+                      espacio(15),
+                      textFormField(
+                          'Contraseña',
+                          txtpassword,
+                          TextInputType.visiblePassword,
+                          Icons.lock,
+                          'Contraseña',
+                          true,
+                          Icons.visibility_off,
+                          Icons.visibility),
+                      espacio(15),
+                      botonIngresar(),
+                      espacio(15),
+                      regresarLogin()
+                    ],
+                  ),
+                ),
               ),
             ),
           ),
-        )),
+        ),
       ),
-    ));
+    );
   }
 
   Widget espacio(double alto) {
@@ -151,7 +160,7 @@ class RegisterForm extends State<Register> {
     );
   }
 
-  Widget botonIngresar(formKey) {
+  Widget botonIngresar() {
     return SizedBox(
         width: double.infinity,
         child: ElevatedButton(
@@ -175,19 +184,23 @@ class RegisterForm extends State<Register> {
   }
 
   Widget regresarLogin() {
-    return Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-      const Text('¿ya te encuentras registrado?',
-          style: TextStyle(fontSize: 15, color: Colors.white)),
-      const SizedBox(width: 5),
-      InkWell(
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text('¿ya te encuentras registrado?',
+            style: TextStyle(fontSize: 15, color: Colors.white)),
+        const SizedBox(width: 5),
+        InkWell(
           onTap: () {
             Navigator.pushNamed(context, 'login');
           },
-          child: const Text('Login',
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold)))
-    ]);
+          child: const Text(
+            'Login',
+            style: TextStyle(
+                fontSize: 15, color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ],
+    );
   }
 }

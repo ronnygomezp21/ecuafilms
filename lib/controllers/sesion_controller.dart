@@ -2,25 +2,31 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecuafilms/main.dart';
 import 'package:ecuafilms/models/usuario_model.dart';
+import 'package:ecuafilms/views/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class Sesion {
-  /*Future login(String email, String password) async {
+  Future login(String email, String password, context) async {
     try {
-      UserCredential resultado = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
-      return resultado.user;
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
+              email: email.trim().toString(),
+              password: password.trim().toString())
+          .then((value) => Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Home())));
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        return 'No existe un usuario con ese correo.';
-      } else if (e.code == 'wrong-password') {
-        return 'Contraseña incorrecta.';
-      } else {
-        return 'Error al iniciar sesión, intentalo de nuevo.';
+      if (e.code == 'user-not-found' || e.code == 'wrong-password') {
+        Flushbar(
+          margin: const EdgeInsets.all(8),
+          borderRadius: BorderRadius.circular(8),
+          message: 'correo o contraseña incorrectos.',
+          duration: const Duration(seconds: 3),
+          backgroundColor: const Color(0xFFDC3545),
+        ).show(context);
       }
     }
-  }*/
+  }
 
   Future registrarseFireBase(String nombres, String apellidos, String email,
       String password, context) async {
