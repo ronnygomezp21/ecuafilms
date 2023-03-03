@@ -25,48 +25,53 @@ class LoginForm extends State<Login> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-            decoration: const BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('assets/img/fondo_1.jpg'),
-                fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(
-                  Colors.black54,
-                  BlendMode.darken,
+        body: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/img/fondo_1.jpg'),
+              fit: BoxFit.cover,
+              colorFilter: ColorFilter.mode(
+                Colors.black54,
+                BlendMode.darken,
+              ),
+            ),
+          ),
+          child: Center(
+              child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(18),
+              child: Form(
+                key: _formKey,
+                //autovalidateMode: AutovalidateMode.onUserInteraction,
+                child: Column(
+                  //mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _logo(),
+                    _espacio(),
+                    _textFormFieldCorreo(txtcorreo),
+                    _espacio(),
+                    _textFormFielPassword(txtpassword),
+                    _espacio(),
+                    _olvidastePassword(),
+                    _espacio(),
+                    _botonIngresar(
+                      context,
+                      _formKey,
+                      txtcorreo,
+                      txtpassword,
+                    ),
+                    _espacio(),
+                    _crearCuenta(context),
+                  ],
                 ),
               ),
             ),
-            child: Center(
-                child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(18),
-                child: Form(
-                  key: _formKey,
-                  //autovalidateMode: AutovalidateMode.onUserInteraction,
-                  child: Column(
-                    //mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      _logo(),
-                      _espacio(),
-                      _textFormFieldCorreo(txtcorreo),
-                      _espacio(),
-                      _textFormFielPassword(txtpassword),
-                      _espacio(),
-                      _olvidastePassword(),
-                      _espacio(),
-                      _botonIngresar(
-                        context,
-                        _formKey,
-                        txtcorreo,
-                        txtpassword,
-                      ),
-                      _espacio(),
-                      _crearCuenta(context),
-                    ],
-                  ),
-                ),
-              ),
-            ))));
+          ))),
+    ));
   }
 
   Widget _espacio() {

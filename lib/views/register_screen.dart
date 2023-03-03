@@ -18,63 +18,68 @@ class RegisterForm extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/img/fondo_1.jpg'),
-          fit: BoxFit.cover,
-          colorFilter: ColorFilter.mode(
-            Colors.black54,
-            BlendMode.darken,
-          ),
-        ),
-      ),
-      child: Center(
-          child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(18),
-          child: Form(
-            key: _formKey,
-            autovalidateMode: AutovalidateMode.onUserInteraction,
-            child: Column(
-              //mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                text('Registro'),
-                espacio(15),
-                textFormField('Nombres', txtnombres, TextInputType.text,
-                    Icons.person, 'Nombres', false, null, null),
-                espacio(15),
-                textFormField('Apellidos', txtapellidos, TextInputType.text,
-                    Icons.person, 'Apellidos', false, null, null),
-                espacio(15),
-                textFormField(
-                    'Correo Electronico',
-                    txtcorreo,
-                    TextInputType.emailAddress,
-                    Icons.email,
-                    'Correo',
-                    false,
-                    null,
-                    null),
-                espacio(15),
-                textFormField(
-                    'Contraseña',
-                    txtpassword,
-                    TextInputType.visiblePassword,
-                    Icons.lock,
-                    'Contraseña',
-                    true,
-                    Icons.visibility_off,
-                    Icons.visibility),
-                espacio(15),
-                botonIngresar(_formKey),
-                espacio(15),
-                regresarLogin(),
-              ],
+        body: GestureDetector(
+      onTap: () {
+        FocusScope.of(context).unfocus();
+      },
+      child: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage('assets/img/fondo_1.jpg'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+              Colors.black54,
+              BlendMode.darken,
             ),
           ),
         ),
-      )),
+        child: Center(
+            child: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(18),
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  text('Registro'),
+                  espacio(15),
+                  textFormField('Nombres', txtnombres, TextInputType.text,
+                      Icons.person, 'Nombres', false, null, null),
+                  espacio(15),
+                  textFormField('Apellidos', txtapellidos, TextInputType.text,
+                      Icons.person, 'Apellidos', false, null, null),
+                  espacio(15),
+                  textFormField(
+                      'Correo Electronico',
+                      txtcorreo,
+                      TextInputType.emailAddress,
+                      Icons.email,
+                      'Correo',
+                      false,
+                      null,
+                      null),
+                  espacio(15),
+                  textFormField(
+                      'Contraseña',
+                      txtpassword,
+                      TextInputType.visiblePassword,
+                      Icons.lock,
+                      'Contraseña',
+                      true,
+                      Icons.visibility_off,
+                      Icons.visibility),
+                  espacio(15),
+                  botonIngresar(_formKey),
+                  espacio(15),
+                  regresarLogin(),
+                ],
+              ),
+            ),
+          ),
+        )),
+      ),
     ));
   }
 
