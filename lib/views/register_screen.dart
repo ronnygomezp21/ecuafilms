@@ -68,6 +68,8 @@ class RegisterForm extends State<Register> {
                     Icons.visibility),
                 espacio(15),
                 botonIngresar(_formKey),
+                espacio(15),
+                regresarLogin(),
               ],
             ),
           ),
@@ -191,5 +193,33 @@ class RegisterForm extends State<Register> {
       Sesion().registrarseFireBase(txtnombres.text, txtapellidos.text,
           txtcorreo.text, txtpassword.text, context);
     }
+  }
+
+  Widget regresarLogin() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        const Text('¿ya te encuentras registrado?',
+            style: TextStyle(
+              fontSize: 15,
+              color: Colors.white,
+            )),
+        const SizedBox(
+          width: 5,
+        ),
+        InkWell(
+            onTap: () {
+              Navigator.pushNamed(context, 'login');
+            },
+            child: const Text(
+              'Login',
+              style: TextStyle(
+                fontSize: 15,
+                color: Colors.white,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+      ],
+    );
   }
 }
