@@ -1,4 +1,4 @@
-import 'package:ecuafilms/widgets/menu_pelicula.dart';
+import 'package:ecuafilms/widgets/menu_pelicula_screen.dart';
 
 import 'package:flutter/material.dart';
 

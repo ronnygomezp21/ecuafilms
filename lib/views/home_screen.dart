@@ -1,7 +1,7 @@
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/views/login_screen.dart';
 import 'package:ecuafilms/controllers/api_controller.dart';
-import 'package:ecuafilms/widgets/menu_pelicula.dart';
+import 'package:ecuafilms/widgets/menu_pelicula_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import '../models/pelicula_model.dart';
