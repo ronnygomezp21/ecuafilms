@@ -12,6 +12,7 @@ class MenuPelicula extends StatefulWidget {
 
 class _Menu extends State<MenuPelicula> {
   final User? user = FirebaseAuth.instance.currentUser;
+  
   @override
   void initState() {
     super.initState();

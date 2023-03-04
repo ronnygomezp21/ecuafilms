@@ -1,5 +1,5 @@
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
-import 'package:ecuafilms/controllers/api_controller.dart';
+import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/widgets/menu_pelicula_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import '../models/pelicula_model.dart';
@@ -26,7 +26,7 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    final User? user = FirebaseAuth.instance.currentUser;
+    //final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF242A32),

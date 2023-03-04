@@ -1,4 +1,4 @@
-import 'package:ecuafilms/controllers/api_controller.dart';
+import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
 

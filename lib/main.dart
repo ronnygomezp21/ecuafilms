@@ -93,6 +93,7 @@ class _MyAppState extends State<MyApp> {
           }
         },
       ),
+      //initialRoute: 'login',
       routes: {
         'login': (BuildContext context) => const Login(),
         'register': (BuildContext context) => const Register(),
