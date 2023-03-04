@@ -62,7 +62,7 @@ class _Detalle extends State<DetallePelicula> {
                                     ),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                          '${image}w500${snapshot.data!.backdropPath}'),
+                                          '${image}original${snapshot.data!.backdropPath}'),
                                       fit: BoxFit.cover,
                                     ),
                                   ),

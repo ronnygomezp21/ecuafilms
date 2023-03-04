@@ -9,7 +9,7 @@ class Perfil {
   Future<Usuario> obtenerUsuario(userId) async {
     try {
       DocumentSnapshot snapshot =
-          await firestore.collection('usuarios').doc(userId).get();
+          await firestore.collection('usuarios').doc(userId.toString()).get();
       if (snapshot.exists) {
         return Usuario(
           firebaseId: snapshot.id,
