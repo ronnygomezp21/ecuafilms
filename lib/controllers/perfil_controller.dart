@@ -20,6 +20,7 @@ class Perfil {
         return Usuario(firebaseId: '', nombres: '', apellidos: '');
       }
     } on Exception catch (e) {
+      // ignore: avoid_print
       print(e);
       return Usuario(firebaseId: '', nombres: '', apellidos: '');
     }
@@ -44,6 +45,7 @@ class Perfil {
         apellidos: apellidos,
       );
     } on Exception catch (e) {
+      // ignore: avoid_print
       print(e);
       Flushbar(
         margin: const EdgeInsets.all(8),

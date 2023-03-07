@@ -104,6 +104,7 @@ class _Home extends State<Home> {
                 onTap: () {
                   Navigator.pushNamed(context, 'detalle_pelicula',
                       arguments: snapshot.data!.results![index].id);
+                  // ignore: avoid_print
                   print(snapshot.data!.results![index].id);
                 },
                 child: Column(

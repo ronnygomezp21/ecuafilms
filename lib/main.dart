@@ -45,8 +45,10 @@ class _MyAppState extends State<MyApp> {
   void checkAuthentification() {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
+        // ignore: avoid_print
         print('No hay ningun usuario logueado.');
       } else {
+        // ignore: avoid_print
         print('Usuario logueado');
       }
     });
@@ -95,6 +97,7 @@ class _MyAppState extends State<MyApp> {
       ),
       //initialRoute: 'login',
       routes: {
+        //'main': (BuildContext context) => const MyApp(),
         'login': (BuildContext context) => const Login(),
         'register': (BuildContext context) => const Register(),
         'home': (BuildContext context) => const Home(),

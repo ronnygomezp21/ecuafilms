@@ -115,6 +115,7 @@ class _Detalle extends State<DetallePelicula> {
                             padding: const EdgeInsets.only(top: 15, left: 15),
                             child: SizedBox(
                               width: MediaQuery.of(context).size.width,
+                              // ignore: avoid_unnecessary_containers
                               child: Container(
                                   child: Row(
                                 children: [
