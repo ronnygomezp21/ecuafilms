@@ -17,6 +17,7 @@ class _PerfilUsuario extends State<PerfilUsuario> {
   final txtnombres = TextEditingController();
   final txtapellidos = TextEditingController();
   String? userId = FirebaseAuth.instance.currentUser!.uid;
+  String? correo = FirebaseAuth.instance.currentUser!.email!;
 
   @override
   void initState() {
@@ -32,6 +33,8 @@ class _PerfilUsuario extends State<PerfilUsuario> {
 
   @override
   Widget build(BuildContext context) {
+    String hash = datosPerfil.imagenHash(correo!);
+
     return Scaffold(
       appBar: AppBar(
         actions: const <Widget>[],
@@ -57,7 +60,9 @@ class _PerfilUsuario extends State<PerfilUsuario> {
               key: formKey,
               child: Column(
                 children: [
-                  text('Perfil'),
+                  text('Editar Perfil'),
+                  espacio(16),
+                  imagenPerfil(hash),
                   espacio(15),
                   textFormField('Nombres', txtnombres, TextInputType.text,
                       Icons.person, 'Nombres'),
@@ -73,14 +78,39 @@ class _PerfilUsuario extends State<PerfilUsuario> {
     );
   }
 
+  Widget imagenPerfil(String hash) {
+    return Container(
+      alignment: Alignment.center,
+      width: 100,
+      height: 100,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        image: DecorationImage(
+          image: NetworkImage(
+              'https://www.gravatar.com/avatar/$hash?d=robohash&f=y&s=200'),
+          fit: BoxFit.fill,
+        ),
+      ),
+    );
+  }
+
   Widget espacio(double alto) {
     return SizedBox(height: alto);
   }
 
   Widget text(String registro) {
-    return Text(registro,
-        style: const TextStyle(
-            color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold));
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      child: Align(
+        alignment: Alignment.center,
+        child: Text(registro,
+            style: const TextStyle(
+                color: Colors.white,
+                fontSize: 30,
+                fontWeight: FontWeight.bold)),
+      ),
+    );
   }
 
   Widget textFormField(String texto, TextEditingController controller,

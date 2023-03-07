@@ -31,8 +31,7 @@ class _Detalle extends State<DetallePelicula> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Home()));
+          Navigator.pop(context);
         },
         backgroundColor: const Color.fromRGBO(255, 255, 255, 0.863),
         heroTag: FloatingActionButtonLocation.endDocked,

@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crypto/crypto.dart';
 import 'package:ecuafilms/models/usuario_model.dart';
 import 'package:flutter/material.dart';
 import 'package:another_flushbar/flushbar.dart';
@@ -56,5 +59,12 @@ class Perfil {
       ).show(context);
       return Usuario(firebaseId: '', nombres: '', apellidos: '');
     }
+  }
+
+  String imagenHash(String correo) {
+    correo = correo.trim();
+    correo = correo.toLowerCase();
+    String hash = md5.convert(utf8.encode(correo)).toString();
+    return hash;
   }
 }

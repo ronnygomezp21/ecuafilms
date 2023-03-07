@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
+import 'package:ecuafilms/controllers/perfil_controller.dart';
 import 'package:ecuafilms/main.dart';
 import 'package:ecuafilms/views/home_screen.dart';
 import 'package:ecuafilms/views/perfi_usuario_screen.dart';
@@ -13,7 +16,9 @@ class MenuPelicula extends StatefulWidget {
 }
 
 class _Menu extends State<MenuPelicula> {
+  final Perfil datosPerfil = Perfil();
   final User? userFirebase = FirebaseAuth.instance.currentUser;
+  String? correo = FirebaseAuth.instance.currentUser!.email!;
 
   @override
   void initState() {
@@ -23,6 +28,8 @@ class _Menu extends State<MenuPelicula> {
 
   @override
   Widget build(BuildContext context) {
+    String hash = datosPerfil.imagenHash(correo!);
+
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
@@ -30,7 +37,7 @@ class _Menu extends State<MenuPelicula> {
           UserAccountsDrawerHeader(
             decoration: const BoxDecoration(color: Color(0xFF242A32)),
             accountName: const Text(
-              'Bienvenido',
+              '¡Bienvenido!',
               style: TextStyle(
                 fontWeight: FontWeight.bold,
               ),
@@ -41,7 +48,11 @@ class _Menu extends State<MenuPelicula> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            currentAccountPicture: const FlutterLogo(),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.white,
+              backgroundImage: NetworkImage(
+                  'https://www.gravatar.com/avatar/$hash?d=robohash&f=y&s=200'),
+            ),
           ),
           drawerItem(
               icon: Icons.movie,
