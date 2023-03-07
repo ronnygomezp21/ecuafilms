@@ -15,14 +15,14 @@ class ApiPelicula {
     }
   }
 
-  Future<Welcome> obtenerDetallePelicula(Object? args) async {
+  Future<Welcome> obtenerDetallePelicula(Object? idPelicula) async {
     final response = await http.get(Uri.parse(
-        '${Api.baseUrl}movie/$args?api_key=${Api.apiKey}&language=es-ES'));
+        '${Api.baseUrl}movie/$idPelicula?api_key=${Api.apiKey}&language=es-ES'));
 
     if (response.statusCode == 200) {
       return welcomeFromJson(response.body);
     } else {
-      throw Exception('Error al cargar las peliculas.');
+      throw Exception('Error al cargar el detalle de la pelicula.');
     }
   }
 }

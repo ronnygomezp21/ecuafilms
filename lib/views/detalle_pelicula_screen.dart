@@ -1,6 +1,7 @@
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
+import 'package:ecuafilms/views/home_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -23,11 +24,20 @@ class _Detalle extends State<DetallePelicula> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final Object? args = ModalRoute.of(context)?.settings.arguments;
+    final Object? idPelicula = ModalRoute.of(context)?.settings.arguments;
     Future<Welcome> detallePelicula =
-        ApiPelicula().obtenerDetallePelicula(args);
+        ApiPelicula().obtenerDetallePelicula(idPelicula);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => const Home()));
+        },
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.863),
+        heroTag: FloatingActionButtonLocation.endDocked,
+        child: const Icon(Icons.arrow_back, color: Colors.black87),
+      ),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -67,13 +77,23 @@ class _Detalle extends State<DetallePelicula> {
                                     ),
                                   ),
                                 ),
-                                SafeArea(
-                                    child: Container(
-                                  alignment: Alignment.topLeft,
-                                  child: const BackButton(
-                                    color: Colors.white,
+                                Container(
+                                  height: size.height * 0.5,
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      bottomLeft: Radius.circular(40),
+                                      bottomRight: Radius.circular(40),
+                                    ),
+                                    gradient: LinearGradient(
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                      colors: [
+                                        Colors.transparent,
+                                        Color.fromARGB(183, 0, 0, 0),
+                                      ],
+                                    ),
                                   ),
-                                )),
+                                ),
                               ],
                             ),
                           ),
@@ -170,10 +190,16 @@ class _Detalle extends State<DetallePelicula> {
                         ]);
                       }));
             } else if (snapshot.hasError) {
-              return const Text('Error al cargar los datos');
+              return const Center(
+                child: Text('Error al cargar las peliculas.'),
+              );
             }
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(
+                color: Colors.black54,
+                backgroundColor: Colors.white,
+                strokeWidth: 5.0,
+              ),
             );
           },
         ),

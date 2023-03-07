@@ -1,6 +1,6 @@
-import 'package:ecuafilms/controllers/perfil_controller.dart';
 import 'package:ecuafilms/main.dart';
-import 'package:ecuafilms/models/usuario_model.dart';
+import 'package:ecuafilms/views/home_screen.dart';
+import 'package:ecuafilms/views/perfi_usuario_screen.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,12 +13,12 @@ class MenuPelicula extends StatefulWidget {
 }
 
 class _Menu extends State<MenuPelicula> {
-  final Perfil datosPerfil = Perfil();
   final User? userFirebase = FirebaseAuth.instance.currentUser;
 
   @override
   void initState() {
     super.initState();
+    userFirebase;
   }
 
   @override
@@ -46,18 +46,32 @@ class _Menu extends State<MenuPelicula> {
           drawerItem(
               icon: Icons.movie,
               text: 'Peliculas',
-              onTap: () => Navigator.pushNamed(context, 'home')),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(builder: (context) => const Home()),
+                    (Route<dynamic> route) => false,
+                  )),
           drawerItem(
               icon: Icons.person,
               text: 'Perfil',
-              onTap: () => Navigator.pushNamed(context, 'perfil_usuario')),
+              onTap: () => Navigator.pushAndRemoveUntil(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PerfilUsuario()),
+                    (Route<dynamic> route) => false,
+                  )),
           drawerItem(
               icon: Icons.exit_to_app,
               text: 'Cerrar Sesión',
               onTap: () {
-                FirebaseAuth.instance.signOut().then((value) => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const MyApp())));
+                FirebaseAuth.instance
+                    .signOut()
+                    .then((value) => Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MyApp()),
+                          (Route<dynamic> route) => false,
+                        ));
               }),
         ],
       ),

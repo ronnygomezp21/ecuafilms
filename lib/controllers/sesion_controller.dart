@@ -2,7 +2,6 @@ import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecuafilms/main.dart';
 import 'package:ecuafilms/models/usuario_model.dart';
-import 'package:ecuafilms/views/home_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +12,11 @@ class Sesion {
           .signInWithEmailAndPassword(
               email: email.trim().toString(),
               password: password.trim().toString())
-          .then((value) => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Home())));
+          .then((value) => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+                (Route<dynamic> route) => false,
+              ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found' || e.code == 'wrong-password') {
         Flushbar(
@@ -47,8 +49,11 @@ class Sesion {
           .collection('usuarios')
           .doc(resultado.user?.uid)
           .set(usuario.toJson())
-          .then((value) => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const MyApp())));
+          .then((value) => Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => const MyApp()),
+                (Route<dynamic> route) => false,
+              ));
     } on FirebaseAuthException catch (e) {
       if (e.code == 'email-already-in-use') {
         Flushbar(

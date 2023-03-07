@@ -1,7 +1,6 @@
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/widgets/menu_pelicula_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import '../models/pelicula_model.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -26,13 +25,12 @@ class _Home extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    //final User? user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: const Color(0xFF242A32),
         actions: const <Widget>[],
       ),
-      drawer: MenuPelicula(),
+      drawer: const MenuPelicula(),
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -58,7 +56,12 @@ class _Home extends State<Home> {
                 ],
               );
             } else {
-              return const Center(child: CircularProgressIndicator());
+              return const Center(
+                  child: CircularProgressIndicator(
+                color: Colors.black54,
+                backgroundColor: Colors.white,
+                strokeWidth: 5.0,
+              ));
             }
           },
         ),

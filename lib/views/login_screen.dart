@@ -1,4 +1,5 @@
 import 'package:ecuafilms/controllers/sesion_controller.dart';
+import 'package:ecuafilms/views/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
@@ -200,7 +201,8 @@ class LoginForm extends State<Login> {
       children: <Widget>[
         InkWell(
             onTap: () {
-              Navigator.pushNamed(context, 'register');
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const Register()));
             },
             child: const Text(
               'Crear una cuenta',
