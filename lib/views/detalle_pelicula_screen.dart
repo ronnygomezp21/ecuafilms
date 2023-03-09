@@ -1,7 +1,11 @@
+import 'dart:async';
+
+//import 'dart:convert';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
-import 'package:ecuafilms/views/home_screen.dart';
 
 import 'package:flutter/material.dart';
 
@@ -30,13 +34,16 @@ class _Detalle extends State<DetallePelicula> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        tooltip: 'Regresar',
+        mini: true,
         onPressed: () {
           Navigator.pop(context);
         },
         backgroundColor: const Color.fromRGBO(255, 255, 255, 0.863),
-        heroTag: FloatingActionButtonLocation.endDocked,
         child: const Icon(Icons.arrow_back, color: Colors.black87),
       ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
@@ -57,137 +64,104 @@ class _Detalle extends State<DetallePelicula> {
                   itemBuilder: (context, index) => LayoutBuilder(builder:
                           (BuildContext context,
                               BoxConstraints viewportConstraints) {
-                        return Column(children: [
-                          SizedBox(
-                            height: size.height * 0.4,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  height: size.height * 0.5,
-                                  decoration: BoxDecoration(
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40),
-                                    ),
-                                    image: DecorationImage(
-                                      image: NetworkImage(
-                                          '${image}original${snapshot.data!.backdropPath}'),
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                Container(
-                                  height: size.height * 0.5,
-                                  decoration: const BoxDecoration(
-                                    borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(40),
-                                      bottomRight: Radius.circular(40),
-                                    ),
-                                    gradient: LinearGradient(
-                                      begin: Alignment.topCenter,
-                                      end: Alignment.bottomCenter,
-                                      colors: [
-                                        Colors.transparent,
-                                        Color.fromARGB(183, 0, 0, 0),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15, left: 15),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                '${snapshot.data!.title}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 15, left: 15),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              // ignore: avoid_unnecessary_containers
-                              child: Container(
-                                  child: Row(
+                        return Column(
+                          children: [
+                            SizedBox(
+                              height: size.height * 0.4,
+                              child: Stack(
                                 children: [
-                                  const Icon(
-                                    Icons.star,
-                                    color: Colors.yellow,
+                                  Container(
+                                    height: size.height * 0.5,
+                                    decoration: BoxDecoration(
+                                      borderRadius: const BorderRadius.only(
+                                        bottomLeft: Radius.circular(40),
+                                        bottomRight: Radius.circular(40),
+                                      ),
+                                      image: DecorationImage(
+                                        image: NetworkImage(
+                                            '${image}original${snapshot.data!.backdropPath}'),
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                  Text(
-                                    '${snapshot.data!.voteAverage}',
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 15,
+                                  Container(
+                                    height: size.height * 0.5,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(40),
+                                        bottomRight: Radius.circular(40),
+                                      ),
+                                      gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.transparent,
+                                          Color.fromARGB(183, 0, 0, 0),
+                                        ],
+                                      ),
                                     ),
                                   ),
                                 ],
-                              )),
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: size.width * 0.01,
-                                vertical: size.height * 0.02),
-                            child: SizedBox(
-                              height: 30,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemCount: snapshot.data!.genres?.length,
-                                itemBuilder: (context, index) => Container(
-                                  margin: const EdgeInsets.only(left: 10),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 5),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white.withOpacity(0.4),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: Text(
-                                    '${snapshot.data!.genres![index].name}',
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
+                            itemDetallesPelicula(
+                                15,
+                                15,
+                                0,
+                                0,
+                                '${snapshot.data!.title}',
+                                20,
+                                FontWeight.bold,
+                                TextAlign.left),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 15, left: 15),
+                              child: SizedBox(
+                                width: MediaQuery.of(context).size.width,
+                                child: Row(
+                                  children: [
+                                    const Icon(
+                                      Icons.star,
+                                      color: Colors.yellow,
+                                    ),
+                                    Text(
+                                      '${snapshot.data!.voteAverage}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: const Text(
-                                'Sinopsis',
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(
-                                left: 15, top: 10, right: 15, bottom: 15),
-                            child: SizedBox(
-                              width: MediaQuery.of(context).size.width,
-                              child: Text(
-                                textAlign: TextAlign.justify,
+                            listadoGeneroPelicula(size, snapshot),
+                            itemDetallesPelicula(15, 0, 0, 0, 'Sinopsis', 20,
+                                FontWeight.bold, TextAlign.left),
+                            itemDetallesPelicula(
+                                15,
+                                10,
+                                15,
+                                0,
                                 '${snapshot.data!.overview}',
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 15,
-                                ),
-                              ),
+                                15,
+                                FontWeight.normal,
+                                TextAlign.justify),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                btnAgregarResena(
+                                    snapshot.data!.id.toString(),
+                                    snapshot.data!.backdropPath,
+                                    snapshot.data!.title),
+                                btnVerResena(snapshot.data!.id.toString(),
+                                    snapshot.data!.title),
+                              ],
                             ),
-                          ),
-                        ]);
+                            const SizedBox(
+                              height: 10,
+                            )
+                          ],
+                        );
                       }));
             } else if (snapshot.hasError) {
               return const Center(
@@ -202,6 +176,118 @@ class _Detalle extends State<DetallePelicula> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Widget btnVerResena(String? id, String? titulo) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'verResena', arguments: {
+            'id_pelicula': id,
+            'titulo': titulo,
+          });
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white.withOpacity(0.4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: const Text(
+          'Ver reseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget btnAgregarResena(
+    String? id,
+    String? backdropPath,
+    String? titulo,
+  ) {
+    return Container(
+      margin: const EdgeInsets.only(top: 10),
+      child: ElevatedButton(
+        onPressed: () {
+          Navigator.pushNamed(context, 'agregarResena', arguments: {
+            'id_pelicula': id,
+            'backdropPath': backdropPath,
+            'titulo': titulo
+          });
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.white.withOpacity(0.4),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+        child: const Text(
+          'Agregar reseña',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 15,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget listadoGeneroPelicula(Size size, AsyncSnapshot<Welcome> snapshot) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+          horizontal: size.width * 0.01, vertical: size.height * 0.02),
+      child: SizedBox(
+        height: 30,
+        child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: snapshot.data!.genres?.length,
+          itemBuilder: (context, index) => Container(
+            margin: const EdgeInsets.only(left: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.4),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Text(
+              '${snapshot.data!.genres![index].name}',
+              style: const TextStyle(color: Colors.white),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget itemDetallesPelicula(
+      double izquierda,
+      double arriba,
+      double derecha,
+      double abajo,
+      String texto,
+      double tamanoTexto,
+      FontWeight tipoLetra,
+      TextAlign alineacion) {
+    return Padding(
+      padding: EdgeInsets.only(
+          left: izquierda, top: arriba, right: derecha, bottom: abajo),
+      child: SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Text(
+          textAlign: alineacion,
+          texto,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: tamanoTexto,
+            fontWeight: tipoLetra,
+          ),
         ),
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:ecuafilms/views/detalle_pelicula_screen.dart';
 import 'package:ecuafilms/views/home_screen.dart';
 import 'package:ecuafilms/views/perfi_usuario_screen.dart';
+import 'package:ecuafilms/views/agregar_resena_pelicula_screen.dart';
+import 'package:ecuafilms/views/ver_resena_pelicula_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ecuafilms/views/login_screen.dart';
@@ -103,6 +105,9 @@ class _MyAppState extends State<MyApp> {
         'home': (BuildContext context) => const Home(),
         'detalle_pelicula': (BuildContext context) => const DetallePelicula(),
         'perfil_usuario': (BuildContext context) => const PerfilUsuario(),
+        'agregarResena': (BuildContext context) =>
+            const AgregarResenaPeliculaScreen(),
+        'verResena': (BuildContext context) => const VerResenaPeliculaScreen(),
       },
     );
   }

@@ -162,7 +162,7 @@ class _PerfilUsuario extends State<PerfilUsuario> {
           ),
           onPressed: validacion,
           child: const Text('Actualizar',
-              style: TextStyle(fontSize: 20, color: Colors.white)),
+              style: TextStyle(fontSize: 15, color: Colors.white)),
         ));
   }
 
