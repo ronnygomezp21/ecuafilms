@@ -30,7 +30,7 @@ class _Detalle extends State<DetallePelicula> {
     Size size = MediaQuery.of(context).size;
     final Object? idPelicula = ModalRoute.of(context)?.settings.arguments;
     Future<Welcome> detallePelicula =
-        ApiPelicula().obtenerDetallePelicula(idPelicula);
+        PeliculaController().obtenerDetallePelicula(idPelicula);
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
@@ -114,7 +114,7 @@ class _Detalle extends State<DetallePelicula> {
                                 FontWeight.bold,
                                 TextAlign.left),
                             Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 15),
+                              padding: const EdgeInsets.only(top: 6, left: 15),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
@@ -127,7 +127,8 @@ class _Detalle extends State<DetallePelicula> {
                                       '${snapshot.data!.voteAverage}',
                                       style: const TextStyle(
                                         color: Colors.white,
-                                        fontSize: 15,
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
@@ -139,7 +140,7 @@ class _Detalle extends State<DetallePelicula> {
                                 FontWeight.bold, TextAlign.left),
                             itemDetallesPelicula(
                                 15,
-                                10,
+                                8,
                                 15,
                                 0,
                                 '${snapshot.data!.overview}',
@@ -183,7 +184,7 @@ class _Detalle extends State<DetallePelicula> {
 
   Widget btnVerResena(String? id, String? titulo) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 8),
       child: ElevatedButton(
         onPressed: () {
           Navigator.pushNamed(context, 'verResena', arguments: {
@@ -192,7 +193,8 @@ class _Detalle extends State<DetallePelicula> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white.withOpacity(0.4),
+          elevation: 5,
+          backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -200,7 +202,7 @@ class _Detalle extends State<DetallePelicula> {
         child: const Text(
           'Ver reseña',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 15,
           ),
         ),
@@ -214,7 +216,7 @@ class _Detalle extends State<DetallePelicula> {
     String? titulo,
   ) {
     return Container(
-      margin: const EdgeInsets.only(top: 10),
+      margin: const EdgeInsets.only(top: 8),
       child: ElevatedButton(
         onPressed: () {
           Navigator.pushNamed(context, 'agregarResena', arguments: {
@@ -224,7 +226,8 @@ class _Detalle extends State<DetallePelicula> {
           });
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.white.withOpacity(0.4),
+          elevation: 5,
+          backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -232,7 +235,7 @@ class _Detalle extends State<DetallePelicula> {
         child: const Text(
           'Agregar reseña',
           style: TextStyle(
-            color: Colors.white,
+            color: Colors.black,
             fontSize: 15,
           ),
         ),
@@ -243,7 +246,7 @@ class _Detalle extends State<DetallePelicula> {
   Widget listadoGeneroPelicula(Size size, AsyncSnapshot<Welcome> snapshot) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: size.width * 0.01, vertical: size.height * 0.02),
+          horizontal: size.width * 0.01, vertical: size.height * 0.01),
       child: SizedBox(
         height: 30,
         child: ListView.builder(
@@ -253,12 +256,15 @@ class _Detalle extends State<DetallePelicula> {
             margin: const EdgeInsets.only(left: 10),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(0.4),
-              borderRadius: BorderRadius.circular(10),
+              color: Color(0xFFFFC107).withOpacity(0.9).withBlue(60),
+              borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
               '${snapshot.data!.genres![index].name}',
-              style: const TextStyle(color: Colors.white),
+              style: const TextStyle(
+                color: Colors.black,
+                fontSize: 15,
+              ),
             ),
           ),
         ),

@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 import 'package:ecuafilms/controllers/perfil_controller.dart';
 import 'package:ecuafilms/main.dart';
 import 'package:ecuafilms/views/home_screen.dart';
@@ -61,7 +59,8 @@ class _Menu extends State<MenuPelicula> {
                     context,
                     MaterialPageRoute(builder: (context) => const Home()),
                     (Route<dynamic> route) => false,
-                  )),
+                  ),
+              color: const Color(0xFF6610f2)),
           drawerItem(
               icon: Icons.person,
               text: 'Perfil',
@@ -70,7 +69,8 @@ class _Menu extends State<MenuPelicula> {
                     MaterialPageRoute(
                         builder: (context) => const PerfilUsuario()),
                     (Route<dynamic> route) => false,
-                  )),
+                  ),
+              color: const Color(0xFF007bff)),
           drawerItem(
               icon: Icons.exit_to_app,
               text: 'Cerrar Sesión',
@@ -83,15 +83,17 @@ class _Menu extends State<MenuPelicula> {
                               builder: (context) => const MyApp()),
                           (Route<dynamic> route) => false,
                         ));
-              }),
+              },
+              color: const Color(0xFFdc3545)),
         ],
       ),
     );
   }
 
-  Widget drawerItem({IconData? icon, String? text, GestureTapCallback? onTap}) {
+  Widget drawerItem(
+      {IconData? icon, String? text, GestureTapCallback? onTap, Color? color}) {
     return ListTile(
-      leading: Icon(icon),
+      leading: Icon(icon, color: color),
       title: Text(text!),
       onTap: onTap,
     );

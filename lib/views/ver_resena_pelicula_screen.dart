@@ -13,8 +13,19 @@ class _VerResenaPeliculaScreenState extends State<VerResenaPeliculaScreen> {
   @override
   Widget build(BuildContext context) {
     Map? argumentos = ModalRoute.of(context)?.settings.arguments as Map?;
-    //print(argumentos!['id_pelicula']);
+
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        tooltip: 'Regresar',
+        mini: false,
+        onPressed: () {
+          Navigator.pop(context);
+        },
+        backgroundColor: const Color.fromRGBO(255, 255, 255, 0.863),
+        child: const Icon(Icons.arrow_back, color: Colors.black87),
+      ),
+      //floatingActionButtonLocation: FloatingActionButtonLocation.miniEndDocked,
       body: Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -102,10 +113,12 @@ class _VerResenaPeliculaScreenState extends State<VerResenaPeliculaScreen> {
                     ),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(Icons.thumb_up, color: Colors.black),
+                      children: [
+                        Icon(Icons.thumb_up,
+                            color: const Color(0xFF0d6efd).withOpacity(1)),
                         SizedBox(width: 10),
-                        Icon(Icons.thumb_down, color: Colors.black)
+                        Icon(Icons.thumb_down,
+                            color: Color(0xFFdc3545).withOpacity(1)),
                       ],
                     ),
                   ),

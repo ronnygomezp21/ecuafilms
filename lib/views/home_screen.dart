@@ -15,7 +15,7 @@ class Home extends StatefulWidget {
   _Home createState() => _Home();
 }
 
-Future<Pelicula> detallePelicula = ApiPelicula().obtenerPeliculas;
+Future<Pelicula> detallePelicula = PeliculaController().obtenerPeliculas;
 
 class _Home extends State<Home> {
   @override

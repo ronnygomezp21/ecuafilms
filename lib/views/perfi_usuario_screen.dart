@@ -155,14 +155,14 @@ class _PerfilUsuario extends State<PerfilUsuario> {
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color.fromARGB(255, 95, 142, 181),
+            backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
             padding: const EdgeInsets.symmetric(vertical: 8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           ),
           onPressed: validacion,
           child: const Text('Actualizar',
-              style: TextStyle(fontSize: 15, color: Colors.white)),
+              style: TextStyle(fontSize: 15, color: Colors.black)),
         ));
   }
 

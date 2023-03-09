@@ -160,6 +160,7 @@ class LoginForm extends State<Login> {
           style: TextStyle(
             fontSize: 15,
             color: Colors.white,
+            fontWeight: FontWeight.bold,
           ),
         ),
       ],
@@ -181,7 +182,7 @@ class LoginForm extends State<Login> {
         child: const Text(
           'Ingresar',
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 15,
             color: Colors.white,
           ),
         ),
@@ -209,6 +210,7 @@ class LoginForm extends State<Login> {
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             )),
         const SizedBox(
@@ -223,6 +225,7 @@ class LoginForm extends State<Login> {
               style: TextStyle(
                 fontSize: 15,
                 color: Colors.white,
+                fontWeight: FontWeight.bold,
               ),
             )),
       ],

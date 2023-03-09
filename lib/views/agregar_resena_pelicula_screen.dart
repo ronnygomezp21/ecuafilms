@@ -93,29 +93,64 @@ class _AgregarResenaPeliculaScreenState
                       },
                     ),
                     const SizedBox(height: 20),
-                    SizedBox(
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor:
-                              const Color.fromARGB(255, 95, 142, 181),
-                          padding: const EdgeInsets.symmetric(vertical: 8),
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(10)),
-                        ),
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            agregarResena(
-                                argumentos['id_pelicula'], txtresena.text);
-                          }
-                        },
-                        child: const Text('Guardar',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 15,
-                            )),
-                      ),
-                    ),
+                    Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          SizedBox(
+                            width: 100,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                backgroundColor: Color(0xFFffc107)
+                                    .withOpacity(0.8)
+                                    .withBlue(60),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  agregarResena(argumentos['id_pelicula'],
+                                      txtresena.text);
+                                }
+                              },
+                              child: const Text('Guardar',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  )),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 5,
+                                backgroundColor: const Color(0xFFffc107)
+                                    .withOpacity(0.8)
+                                    .withBlue(60),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 8),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10)),
+                              ),
+                              onPressed: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const Home(),
+                                  ),
+                                );
+                              },
+                              child: const Text('Cancelar',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15,
+                                  )),
+                            ),
+                          )
+                        ]),
                   ],
                 ),
               ),
