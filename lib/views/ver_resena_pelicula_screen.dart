@@ -95,7 +95,7 @@ class _VerResenaPeliculaScreenState extends State<VerResenaPeliculaScreen> {
               if (element.get('idPelicula') == idPelicula)
                 Card(
                   elevation: 10,
-                  color: Color.fromRGBO(158, 158, 158, 0.726),
+                  color: const Color.fromARGB(206, 158, 158, 158),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(12.0),
                   ),
@@ -115,10 +115,10 @@ class _VerResenaPeliculaScreenState extends State<VerResenaPeliculaScreen> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         Icon(Icons.thumb_up,
-                            color: const Color(0xFF0d6efd).withOpacity(1)),
-                        SizedBox(width: 10),
+                            color: const Color(0xFF0d6efd).withOpacity(0.8)),
+                        const SizedBox(width: 10),
                         Icon(Icons.thumb_down,
-                            color: Color(0xFFdc3545).withOpacity(1)),
+                            color: const Color(0xFFdc3545).withOpacity(0.8)),
                       ],
                     ),
                   ),

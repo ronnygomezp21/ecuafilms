@@ -8,6 +8,7 @@ import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 const image = Api.imageBaseUrl;
 
@@ -119,21 +120,38 @@ class _Detalle extends State<DetallePelicula> {
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
                                   children: [
-                                    const Icon(
-                                      Icons.star,
-                                      color: Colors.yellow,
-                                    ),
                                     Text(
-                                      '${snapshot.data!.voteAverage}',
+                                      snapshot.data!.voteAverage!
+                                          .toString()
+                                          .substring(0, 3),
                                       style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
+                                    const SizedBox(
+                                      width: 5,
+                                    ),
+                                    RatingBarIndicator(
+                                      unratedColor: const Color.fromARGB(
+                                          213, 255, 255, 255),
+                                      rating: snapshot.data!.voteAverage!,
+                                      itemBuilder: (context, index) =>
+                                          const Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                      ),
+                                      itemCount: 10,
+                                      itemSize: 20.0,
+                                      direction: Axis.horizontal,
+                                    ),
                                   ],
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              height: 5,
                             ),
                             listadoGeneroPelicula(size, snapshot),
                             itemDetallesPelicula(15, 0, 0, 0, 'Sinopsis', 20,
