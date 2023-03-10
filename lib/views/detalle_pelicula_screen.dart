@@ -105,9 +105,27 @@ class _Detalle extends State<DetallePelicula> {
                                 ],
                               ),
                             ),
+                            const SizedBox(height: 6),
+                            ElevatedButton.icon(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xFFFFC107)
+                                    .withOpacity(0.9)
+                                    .withBlue(60),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(12.0),
+                                ),
+                              ),
+                              onPressed: () {},
+                              icon: const Icon(Icons.play_arrow,
+                                  color: Colors.black87),
+                              label: const Text('Ver Pelicula',
+                                  style: TextStyle(
+                                    color: Colors.black87,
+                                  )),
+                            ),
                             itemDetallesPelicula(
                                 15,
-                                15,
+                                3,
                                 0,
                                 0,
                                 '${snapshot.data!.title}',
@@ -115,7 +133,7 @@ class _Detalle extends State<DetallePelicula> {
                                 FontWeight.bold,
                                 TextAlign.left),
                             Padding(
-                              padding: const EdgeInsets.only(top: 6, left: 15),
+                              padding: const EdgeInsets.only(top: 3, left: 15),
                               child: SizedBox(
                                 width: MediaQuery.of(context).size.width,
                                 child: Row(
@@ -154,7 +172,7 @@ class _Detalle extends State<DetallePelicula> {
                               height: 5,
                             ),
                             listadoGeneroPelicula(size, snapshot),
-                            itemDetallesPelicula(15, 0, 0, 0, 'Sinopsis', 20,
+                            itemDetallesPelicula(15, 3, 0, 0, 'Sinopsis', 20,
                                 FontWeight.bold, TextAlign.left),
                             itemDetallesPelicula(
                                 15,
@@ -162,7 +180,7 @@ class _Detalle extends State<DetallePelicula> {
                                 15,
                                 0,
                                 '${snapshot.data!.overview}',
-                                15,
+                                14,
                                 FontWeight.normal,
                                 TextAlign.justify),
                             Row(
@@ -212,7 +230,8 @@ class _Detalle extends State<DetallePelicula> {
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,
-          backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
+          backgroundColor:
+              const Color(0xFFffc107).withOpacity(0.9).withBlue(60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -264,7 +283,7 @@ class _Detalle extends State<DetallePelicula> {
   Widget listadoGeneroPelicula(Size size, AsyncSnapshot<Welcome> snapshot) {
     return Padding(
       padding: EdgeInsets.symmetric(
-          horizontal: size.width * 0.01, vertical: size.height * 0.01),
+          horizontal: size.width * 0.01, vertical: size.height * 0.002),
       child: SizedBox(
         height: 30,
         child: ListView.builder(
