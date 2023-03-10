@@ -171,9 +171,11 @@ class _Detalle extends State<DetallePelicula> {
                             const SizedBox(
                               height: 5,
                             ),
+                            //metodo para en listar el genero de la pelicula
                             listadoGeneroPelicula(size, snapshot),
                             itemDetallesPelicula(15, 3, 0, 0, 'Sinopsis', 20,
                                 FontWeight.bold, TextAlign.left),
+                            //metodo para mostrar la sinopsis de la pelicula
                             itemDetallesPelicula(
                                 15,
                                 8,
