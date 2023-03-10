@@ -58,20 +58,23 @@ class _PerfilUsuario extends State<PerfilUsuario> {
           child: Form(
               autovalidateMode: AutovalidateMode.onUserInteraction,
               key: formKey,
-              child: Column(
-                children: [
-                  text('Editar Perfil'),
-                  espacio(16),
-                  imagenPerfil(hash),
-                  espacio(15),
-                  textFormField('Nombres', txtnombres, TextInputType.text,
-                      Icons.person, 'Nombres'),
-                  espacio(15),
-                  textFormField('Apellidos', txtapellidos, TextInputType.text,
-                      Icons.person, 'Apellidos'),
-                  espacio(15),
-                  botonActualizar(),
-                ],
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  children: [
+                    text('Editar Perfil'),
+                    espacio(16),
+                    imagenPerfil(hash),
+                    espacio(15),
+                    textFormField('Nombres', txtnombres, TextInputType.text,
+                        Icons.person, 'Nombres'),
+                    espacio(15),
+                    textFormField('Apellidos', txtapellidos, TextInputType.text,
+                        Icons.person, 'Apellidos'),
+                    espacio(15),
+                    botonActualizar(),
+                  ],
+                ),
               )),
         ),
       ),
@@ -138,11 +141,12 @@ class _PerfilUsuario extends State<PerfilUsuario> {
         if (value!.isEmpty) {
           return 'Por favor ingrese su $mensaje';
         }
-        if (mensaje == 'Nombres' && !RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+        if (mensaje == 'Nombres' &&
+            !RegExp(r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$').hasMatch(value)) {
           return 'Los nombres solo pueden contener letras';
         }
         if (mensaje == 'Apellidos' &&
-            !RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+            !RegExp(r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$').hasMatch(value)) {
           return 'Los apellidos solo pueden contener letras';
         }
         return null;
@@ -155,7 +159,8 @@ class _PerfilUsuario extends State<PerfilUsuario> {
         width: double.infinity,
         child: ElevatedButton(
           style: ElevatedButton.styleFrom(
-            backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
+            backgroundColor:
+                const Color(0xFFffc107).withOpacity(0.9).withBlue(60),
             padding: const EdgeInsets.symmetric(vertical: 8),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),

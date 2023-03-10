@@ -47,7 +47,7 @@ class _VerResenaPeliculaScreenState extends State<VerResenaPeliculaScreen> {
                   top: 25, left: 15, right: 15, bottom: 12),
               child: Column(
                 children: [
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   Text(argumentos!['titulo'].toString(),

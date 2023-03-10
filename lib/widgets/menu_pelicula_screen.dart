@@ -2,7 +2,6 @@ import 'package:ecuafilms/controllers/perfil_controller.dart';
 import 'package:ecuafilms/main.dart';
 import 'package:ecuafilms/views/home_screen.dart';
 import 'package:ecuafilms/views/perfi_usuario_screen.dart';
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

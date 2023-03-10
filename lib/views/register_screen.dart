@@ -149,11 +149,12 @@ class RegisterForm extends State<Register> {
         if (mensaje == 'Contraseña' && value.length < 6) {
           return 'La contraseña debe tener al menos 6 caracteres';
         }
-        if (mensaje == 'Nombres' && !RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+        if (mensaje == 'Nombres' &&
+            !RegExp(r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$').hasMatch(value)) {
           return 'Los nombres solo pueden contener letras';
         }
         if (mensaje == 'Apellidos' &&
-            !RegExp(r'^[a-zA-Z ]+$').hasMatch(value)) {
+            !RegExp(r'^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$').hasMatch(value)) {
           return 'Los apellidos solo pueden contener letras';
         }
         return null;

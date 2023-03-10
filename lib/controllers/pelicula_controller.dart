@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
 import 'package:http/http.dart' as http;

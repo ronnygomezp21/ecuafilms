@@ -1,8 +1,6 @@
-import 'package:another_flushbar/flushbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/models/resena_model.dart';
-import 'package:ecuafilms/views/detalle_pelicula_screen.dart';
 import 'package:ecuafilms/views/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -82,7 +80,8 @@ class _AgregarResenaPeliculaScreenState
                               borderSide: const BorderSide(
                                   color: Colors.red, width: 2.0),
                               borderRadius: BorderRadius.circular(10)),
-                          prefixIcon: Icon(Icons.menu, color: Colors.black),
+                          prefixIcon:
+                              const Icon(Icons.menu, color: Colors.black),
                           contentPadding: const EdgeInsets.only(top: 14.0)),
                       validator: (value) {
                         if (value!.isEmpty) {
@@ -101,7 +100,7 @@ class _AgregarResenaPeliculaScreenState
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 elevation: 5,
-                                backgroundColor: Color(0xFFffc107)
+                                backgroundColor: const Color(0xFFffc107)
                                     .withOpacity(0.8)
                                     .withBlue(60),
                                 padding:
@@ -185,6 +184,13 @@ class _AgregarResenaPeliculaScreenState
           builder: (context) => const Home(),
         ),
       );
-    } catch (e) {}
+    } catch (e) {
+      SnackBar snackBar = const SnackBar(
+        content: Text('Error al agregar la reseña.'),
+        backgroundColor: Colors.red,
+      );
+      // ignore: use_build_context_synchronously
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
   }
 }

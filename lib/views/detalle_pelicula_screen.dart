@@ -1,8 +1,4 @@
 import 'dart:async';
-
-//import 'dart:convert';
-//import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ecuafilms/api/api.dart';
 import 'package:ecuafilms/controllers/pelicula_controller.dart';
 import 'package:ecuafilms/models/detalle_pelicula_model.dart';
@@ -266,7 +262,8 @@ class _Detalle extends State<DetallePelicula> {
         },
         style: ElevatedButton.styleFrom(
           elevation: 5,
-          backgroundColor: Color(0xFFffc107).withOpacity(0.9).withBlue(60),
+          backgroundColor:
+              const Color(0xFFffc107).withOpacity(0.9).withBlue(60),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -295,7 +292,7 @@ class _Detalle extends State<DetallePelicula> {
             margin: const EdgeInsets.only(left: 10),
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
             decoration: BoxDecoration(
-              color: Color(0xFFFFC107).withOpacity(0.9).withBlue(60),
+              color: const Color(0xFFFFC107).withOpacity(0.9).withBlue(60),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Text(
